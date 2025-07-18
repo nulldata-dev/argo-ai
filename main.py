@@ -10,7 +10,7 @@ def main():
     api_key = os.environ.get("GEMINI_API_KEY")
     client = genai.Client(api_key=api_key)
 
-    if len(sys.argv) < 1: #make sure the user inputs at least 1 input
+    if len(sys.argv) < 2: #make sure the user inputs at least 1 input
         print("WARNING: Please provide a prompt!")
         exit(code=1)
 
