@@ -13,7 +13,7 @@ def get_files_info(working_directory, directory="."):
     directory_contents = os.listdir(directory)
     dir_contents_string = ""
 
-    for file in directory_contents:
+    for file in directory_contents: #loop through all files in the working dir
         path_to_file = os.path.join(working_directory, file)
         print(f"path_to_file: {path_to_file}")
         file_size = os.path.getsize(path_to_file)
