@@ -4,6 +4,7 @@ from constants import *
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
+from functions.get_files_info import *
 
 def main():
     load_dotenv()
