@@ -11,7 +11,7 @@ def get_files_info(working_directory, directory="."):
         return f'Error: "{directory}" is not a directory'
     
     directory_contents = os.listdir(directory)
-    dir_contents_string = ""
+    dir_contents_string = "" #will become the output
 
     for file in directory_contents: #loop through all files in the working dir
         path_to_file = os.path.join(working_directory, file)
