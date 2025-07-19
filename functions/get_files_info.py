@@ -20,7 +20,7 @@ def get_files_info(working_directory, directory="."):
         file_is_dir = os.path.isdir(path_to_file)
         dir_contents_string += f"- {file}: files_size={file_size}, is_dir={file_is_dir}\n"
     
-    print(dir_contents_string)
+    print(dir_contents_string) #test
     
 
 get_files_info("~/workspace/github.com/nulldata-dev/argo-ai")
