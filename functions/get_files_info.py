@@ -21,6 +21,3 @@ def get_files_info(working_directory, directory="."):
         dir_contents_string += f"- {file}: file_size={file_size}, is_dir={file_is_dir}\n"
     
     return dir_contents_string #output the string
-    
-
-print(get_files_info("~/workspace/github.com/nulldata-dev/argo-ai"))
