@@ -1,6 +1,6 @@
 import os
 import sys
-from constants import *
+from config import *
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types

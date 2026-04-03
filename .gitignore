@@ -8,3 +8,5 @@ dist/
 .env
 calculator/
 helper.py
+test*
+lorem.txt
