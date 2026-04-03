@@ -27,12 +27,12 @@ def main():
     
     print(response.text)
 
-    #if len(sys.argv) > 1:
-        #for argument in sys.argv[1:]: #for every argument after the first
-            #if argument == "--verbose": #check if the user 
-    print(f"User prompt: {user_prompt}")
-    print(f"Prompt tokens: {response.usage_metadata.prompt_token_count}")
-    print(f"Response tokens: {response.usage_metadata.candidates_token_count}")
+    if len(sys.argv) > 1:
+        for argument in sys.argv[1:]: #for every argument after the first
+            if argument == "--verbose": #check if the user 
+                print(f"User prompt: {user_prompt}")
+                print(f"Prompt tokens: {response.usage_metadata.prompt_token_count}")
+                print(f"Response tokens: {response.usage_metadata.candidates_token_count}")
 
 
 if __name__ == "__main__":
