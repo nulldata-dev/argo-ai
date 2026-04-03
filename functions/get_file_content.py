@@ -13,16 +13,13 @@ def get_file_content(working_dir, file_path):
     if not valid_file: #check if file_path leads to a valid file
         return f'Error: File not found or is not a regular file: "{abs_file_path}"'
     
-    try:
+    try: #open the file at abs_file_path if it is a file
         with open(abs_file_path, "r") as file:
-            try:
-                file_content = file.read(MAX_CHARS)
-            except:
-                return f'Error: could not read "{abs_file_path}"'
-            if file.read(1):
-                file_content += f'[...File "{file_path}" truncated at {MAX_CHARS} characters]'
-    except:
+            file_content = file.read(MAX_CHARS) #read file content to the output string
+            if file.read(1): #check if there is anything left in the buffer
+                file_content += f'[...File "{file_path}" truncated at {MAX_CHARS} characters]' #inform user of truncation if present
+    except: #return an error string if it fails
         return f'Error: could not open "{abs_file_path}"'
     
-    return file_content
+    return file_content #return file content
         
