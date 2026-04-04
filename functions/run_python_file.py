@@ -3,21 +3,23 @@ import subprocess
 
 def run_python_file(working_dir, file_path, args=None):
     abs_working_dir = os.path.abspath(working_dir) #abs path for working directory
-    abs_file_path = os.path.join(abs_working_dir, file_path) #abs path for the file_path
+    abs_file_path = os.path.normpath(os.path.join(abs_working_dir, file_path)) #abs path for the file_path
 
     valid_target_dir = os.path.commonpath([abs_file_path, abs_working_dir]) == abs_working_dir
     if not valid_target_dir: #check if file_path is within the working directory 
-        return f'Error: Cannot read "{file_path}" as it is outside the permitted working directory'
+        return f'Error: Cannot execute "{file_path}" as it is outside the permitted working directory'
     
     valid_file = os.path.isfile(abs_file_path)
     if not valid_file: #check if file_path leads to a valid file
-        return f'Error: File not found or is not a regular file: "{abs_file_path}"'
+        return f'Error: "{file_path}" does not exist or is not a regular file'
     
     if file_path[-3:] != '.py': #check the end of the file path to see if it is .py
         return f'Error: "{file_path}" is not a Python file'
 
     command = ["python", abs_file_path] #create the command
-    command.extend(args) #add user args
+
+    if args:
+        command.extend(args) #add user args
 
     try:
         process_output = subprocess.run(command, cwd=abs_working_dir, capture_output=True, text=True, timeout=30)
