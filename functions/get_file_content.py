@@ -15,9 +15,12 @@ def get_file_content(working_dir, file_path):
     
     try: #open the file at abs_file_path if it is a file
         with open(abs_file_path, "r") as file:
-            file_content = file.read(MAX_CHARS) #read file content to the output string
-            if file.read(1): #check if there is anything left in the buffer
-                file_content += f'[...File "{file_path}" truncated at {MAX_CHARS} characters]' #inform user of truncation if present
+            try:
+                file_content = file.read(MAX_CHARS) #read file content to the output string
+                if file.read(1): #check if there is anything left in the buffer
+                    file_content += f'[...File "{file_path}" truncated at {MAX_CHARS} characters]' #inform user of truncation if present
+            except:
+                return f'Error: could not read "{file}"'
     except: #return an error string if it fails
         return f'Error: could not open "{abs_file_path}"'
     
