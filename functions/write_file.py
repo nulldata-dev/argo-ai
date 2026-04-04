@@ -2,7 +2,7 @@ import os
 
 def write_file(working_dir, file_path, content):
     abs_working_dir = os.path.abspath(working_dir) #absolute path to the working directory
-    abs_file_path = os.path.join(abs_file_path, file_path) #absolute path to the file
+    abs_file_path = os.path.normpath(os.path.join(abs_working_dir, file_path)) #absolute path to the file
 
     valid_target_dir = os.path.commonpath([abs_working_dir, abs_file_path]) == abs_working_dir
     if not valid_target_dir: #check if file_path is within the working directory
@@ -12,7 +12,7 @@ def write_file(working_dir, file_path, content):
         return f'Error: Cannot write to "{file_path}" as it is a directory'
     
     try:
-        os.makedirs(abs_file_path, exist_ok=True) #make any dirs that do not exist
+        os.makedirs(os.path.dirname(abs_file_path), exist_ok=True) #make any dirs that do not exist
     except:
         return f'Error: could not makedirs for "{abs_file_path}"'
     
