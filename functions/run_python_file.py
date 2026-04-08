@@ -23,24 +23,24 @@ def run_python_file(working_dir, file_path, args=None):
 
     try:
         process_output = subprocess.run(command, cwd=abs_working_dir, capture_output=True, text=True, timeout=30)
-    except Exception as e:
+    except Exception as e: #catch any errors and return a string
         return f'Error: executing Python file: {e}'
 
-    output_string = ''
-    std_out = process_output.stdout
-    std_err = process_output.stderr
+    output_string = '' #the output of the function
+    std_out = process_output.stdout #store the standard out of the subprocess.run
+    std_err = process_output.stderr #store the error output of the subprocess.run
     
     try:
-        if std_out != '':
+        if std_out != '': #add the output of subprocess.run stdout to the output string
             output_string += f'STDOUT: {std_out}\n'
-        if std_err != '':
+        if std_err != '': #add the output of subprocess.run stderr to the output string
             output_string+= f'STDERR: {std_err}\n'
-        if std_out == '' and std_err == '':
+        if std_out == '' and std_err == '': #if neither had any output this will be added instead
             output_string+= 'No output produced\n'
 
-        if process_output.returncode != 0:
+        if process_output.returncode != 0: #if the process had a non zero return code append it to the output string
             output_string += f'Process exited with code {process_output.returncode}'
-    except Exception as e:
+    except Exception as e: #catch any errors and return a string
         return f'Error: executing Python file: {e}'
 
-    return output_string    
+    return output_string #if all goes well return a string with the output of the python subprocess
