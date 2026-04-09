@@ -7,7 +7,6 @@ schema_run_python_file = types.FunctionDeclaration(
     description="""
     Takes 2 arguments, file_path and args. 
     You supply the file path to a python file you want to run, followed by any arguments.
-    Both of these things are strings.
     """,
     parameters=types.Schema(
         type=types.Type.OBJECT,
@@ -21,9 +20,13 @@ schema_run_python_file = types.FunctionDeclaration(
                 """,
             ),
             "args": types.Schema(
-                type=types.Type.STRING,
+                type=types.Type.ARRAY,
+                items=types.Schema(
+                    type=types.Type.STRING
+                ),
                 description="""
                 Any arguments you want the subprocess.run() to use.
+                This should be an array of strings, each string being its own arguement.
                 The default value for this is None, so if no arguments are needed you do not need to use this at all.
                 """,
             ),
