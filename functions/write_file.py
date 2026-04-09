@@ -8,7 +8,7 @@ schema_write_file = types.FunctionDeclaration( #function declaration for the LLM
     """, #a description of the function for the LLM
     parameters=types.Schema( #the parameters of the function that the LLM has access to
         type=types.Type.OBJECT, #not sure ngl this is just what the docs say to do
-        properties={ #explicit description of paremeters of the function
+        properties={ #explicit description of parameters of the function
             "file_path": types.Schema(
                 type=types.Type.STRING,
                 description="""

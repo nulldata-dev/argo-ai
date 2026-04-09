@@ -6,7 +6,7 @@ schema_get_files_info = types.FunctionDeclaration( #function declaration for the
     description="Lists files in a specified directory relative to the working directory, providing file size and directory status", #a short description for the LLM
     parameters=types.Schema( #the parameters of the function that the LLM has access to
         type=types.Type.OBJECT, #not sure ngl this is just what the docs say to do
-        properties={ #explicit description of paremeters of the function
+        properties={ #explicit description of parameters of the function
             "directory": types.Schema(
                 type=types.Type.STRING,
                 description="Directory path to list files from, relative to the working directory (default is the working directory itself)",
