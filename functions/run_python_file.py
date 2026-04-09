@@ -1,5 +1,35 @@
 import os
+from google.genai import types
 import subprocess
+
+schema_run_python_file = types.FunctionDeclaration(
+    name="run_python_file",
+    description="""
+    Takes 2 arguments, file_path and args. 
+    You supply the file path to a python file you want to run, followed by any arguments.
+    Both of these things are strings.
+    """,
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="""
+                The path to the python file you want to run.
+                The path is relative to the working directory, a variable not in your control for security reasons.
+                Has no default, must be given by you.
+                """,
+            ),
+            "args": types.Schema(
+                type=types.Type.STRING,
+                description="""
+                Any arguments you want the subprocess.run() to use.
+                The default value for this is None, so if no arguments are needed you do not need to use this at all.
+                """,
+            ),
+        },
+    ),
+)
 
 def run_python_file(working_dir, file_path, args=None):
     abs_working_dir = os.path.abspath(working_dir) #abs path for working directory
