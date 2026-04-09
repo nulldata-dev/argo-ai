@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 from functions.get_files_info import *
+from functions.call_functions import *
 
 def main():
     load_dotenv()
@@ -22,14 +23,24 @@ def main():
     ]
 
     response = client.models.generate_content( #make a call to genai to generate a response
-        model=AI_MODEL, contents=messages)      
+        model=AI_MODEL, #set the model used to the value set in config.py
+        contents=messages, #add the messages from the user
+        config=types.GenerateContentConfig(
+            system_instruction=system_prompt, #include the system prompt
+            tools=[available_functions], #pass the list of available functions and their declerations from call_functions.py
+            temperature=0 #lower temperature == more deterministic
+        ), 
+    )      
         
-    
-    print(response.text)
+    if response.function_calls is not None: #if the response contains function calls iterate on the list
+        for function_call in response.function_calls: #print information about the called functions
+            print(f"Calling function: {function_call.name}({function_call.args})")
+    else: #if there are no function calls print the response
+        print(response.text)
 
     if len(sys.argv) > 1:
         for argument in sys.argv[1:]: #for every argument after the first
-            if argument == "--verbose": #check if the user 
+            if argument == "--verbose" or "-v": #check if the user triggered the verbose flag
                 print(f"User prompt: {user_prompt}")
                 print(f"Prompt tokens: {response.usage_metadata.prompt_token_count}")
                 print(f"Response tokens: {response.usage_metadata.candidates_token_count}")

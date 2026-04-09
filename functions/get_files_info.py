@@ -1,4 +1,19 @@
 import os
+from google.genai import types
+
+schema_get_files_info = types.FunctionDeclaration( #function declaration for the LLM to understand what get_files_info does a function
+    name="get_files_info", #name of the function
+    description="Lists files in a specified directory relative to the working directory, providing file size and directory status", #a short description for the LLM
+    parameters=types.Schema( #the parameters of the function that the LLM has access to
+        type=types.Type.OBJECT, #not sure ngl this is just what the docs say to do
+        properties={ #explicit description of paremeters of the function
+            "directory": types.Schema(
+                type=types.Type.STRING,
+                description="Directory path to list files from, relative to the working directory (default is the working directory itself)",
+            ),
+        },
+    ),
+)
 
 def get_files_info(working_dir, directory="."):
     abs_working_dir = os.path.abspath(working_dir) #absolute path from relative path, based off the user set working directory
