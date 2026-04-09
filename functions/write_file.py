@@ -1,4 +1,34 @@
 import os
+from google.genai import types
+
+schema_write_file = types.FunctionDeclaration( #function declaration for the LLM to understand what get_files_info does a function
+    name="write_file", #name of the function
+    description="""
+    Writes a file at a specified file_path with a given content.
+    """, #a description of the function for the LLM
+    parameters=types.Schema( #the parameters of the function that the LLM has access to
+        type=types.Type.OBJECT, #not sure ngl this is just what the docs say to do
+        properties={ #explicit description of paremeters of the function
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="""
+                The path to the file you want to write, relative to the user defined working directory.
+                This can be a file that already exists but you will be overwriting it.
+                The folders do not need to exist, the function will create anything in the file path that does not exist.
+                Must be given, has no default value.
+                """,
+            ),
+            "content": types.Schema(
+                type=types.Type.STRING,
+                description="""
+                The content you want to write to the file at the file_path.
+                This will overwrite any existing data if there was any.
+                Must be given, has no default value.
+                """,
+            ),
+        },
+    ),
+)
 
 def write_file(working_dir, file_path, content):
     abs_working_dir = os.path.abspath(working_dir) #absolute path to the working directory
