@@ -40,7 +40,7 @@ def main():
 
     if len(sys.argv) > 1:
         for argument in sys.argv[1:]: #for every argument after the first
-            if argument == "--verbose" or "-v": #check if the user triggered the verbose flag
+            if argument in ("--verbose", "-v"): #check if the user triggered the verbose flag
                 print(f"User prompt: {user_prompt}")
                 print(f"Prompt tokens: {response.usage_metadata.prompt_token_count}")
                 print(f"Response tokens: {response.usage_metadata.candidates_token_count}")
