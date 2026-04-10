@@ -12,10 +12,10 @@ schema_get_file_content = types.FunctionDeclaration(
                 type=types.Type.STRING,
                 description="""
                 The path to the file you want the content of, relative to the working directory.
-                This has no default value and must be specified.
                 """
             ),
         },
+        required=["file_path"], #tells the llm what arguments are required.
     ),
 )
 

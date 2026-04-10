@@ -15,7 +15,6 @@ schema_write_file = types.FunctionDeclaration( #function declaration for the LLM
                 The path to the file you want to write, relative to the user defined working directory.
                 This can be a file that already exists but you will be overwriting it.
                 The folders do not need to exist, the function will create anything in the file path that does not exist.
-                Must be given, has no default value.
                 """,
             ),
             "content": types.Schema(
@@ -23,10 +22,10 @@ schema_write_file = types.FunctionDeclaration( #function declaration for the LLM
                 description="""
                 The content you want to write to the file at the file_path.
                 This will overwrite any existing data if there was any.
-                Must be given, has no default value.
                 """,
             ),
         },
+        required=["file_path","content"], #tells the llm what arguments are required.
     ),
 )
 

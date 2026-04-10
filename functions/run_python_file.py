@@ -16,7 +16,6 @@ schema_run_python_file = types.FunctionDeclaration(
                 description="""
                 The path to the python file you want to run.
                 The path is relative to the working directory, a variable not in your control for security reasons.
-                Has no default, must be given by you.
                 """,
             ),
             "args": types.Schema(
@@ -27,10 +26,10 @@ schema_run_python_file = types.FunctionDeclaration(
                 description="""
                 Any arguments you want the subprocess.run() to use.
                 This should be an array of strings, each string being its own arguement.
-                The default value for this is None, so if no arguments are needed you do not need to use this at all.
                 """,
             ),
         },
+        required=["file_path"], #tells the llm what arguments are required.
     ),
 )
 
